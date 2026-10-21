@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Akademia Przyrody Hani - Przewodnik 🌸</title>
+<!-- Konfiguracja PWA dla iOS i Androida -->
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Przyroda Hani">
+<link rel="apple-touch-icon" href="https://img.icons8.com/color/192/192/hyacinth.png">
+
+<style>
+:root{
+    --bg: #fff0f5; 
+    --card: #ffffff; 
+    --tx: #4a3b4c; 
+    --mu: #8c7890; 
+    --ok: #e6f7ec; 
+    --okb: #38b06e; 
+    --fs: 20px;
+    --primary: #ff6584;
+    --primary-hover: #ff476f;
+    --bubble-bg: #ffe3eb;
+}
+@media(prefers-color-scheme:dark){
+    :root{
+        --bg:#221a24;
+        --card:#2e2332;
+        --tx:#fce8ef;
+        --mu:#b8a2bd;
+        --ok:#1b3826;
+        --okb:#43c57e;
+        --primary:#ff6584;
+        --primary-hover:#ff859d;
+        --bubble-bg:#3d242c;
+    }
+}
+*{box-sizing:border-box}
+body{
+    margin:0;
+    background: var(--bg);
+    color: var(--tx);
+    font: var(--fs)/1.7 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-image: radial-gradient(var(--primary) 0.75px, transparent 0.75px);
+    background-size: 30px 30px;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+main,header{max-width:720px;margin:0 auto;padding:16px}
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background: var(--card);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(255, 101, 132, 0.15);
+    margin-top: 16px;
+    border: 2px solid var(--bubble-bg);
+}
+header b {
+    color: var(--primary);
+    font-size: 1.25em;
+}
+h2{margin:.4em 0; color: var(--primary);}
+h3{margin:.5em 0; color: var(--primary);}
+p{margin: 0.8em 0;}
+.mu{color:var(--mu);font-size:.9em}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#app { animation: fadeInUp 0.4s ease-out; }
+
+.b{
+    display:block;
+    width:100%;
+    min-height:58px;
+    margin:12px 0;
+    padding:14px 20px;
+    font:inherit;
+    text-align:left;
+    background:var(--card);
+    color:var(--tx);
+    border:3px solid var(--bubble-bg);
+    border-radius:18px;
+    cursor:pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    transition: all 0.2s ease;
+}
+.b:hover { border-color: var(--primary); transform: translateY(-2px); }
+
+.go{
+    background: linear-gradient(135deg, var(--primary), #ff8da1);
+    color:#fff;
+    border-color:transparent;
+    text-align:center;
+    font-weight: bold;
+    box-shadow: 0 6px 20px rgba(255, 101, 132, 0.4);
+    border-radius: 18px;
+    margin-top: 20px;
+}
+.go:hover { background: linear-gradient(135deg, var(--primary-hover), var(--primary)); transform: translateY(-2px); }
+
+.s{
+    font:inherit;
+    font-size:.85em;
+    padding:8px 14px;
+    margin:6px 6px 6px 0;
+    background:var(--card);
+    color:var(--tx);
+    border:2px solid var(--bubble-bg);
+    border-radius:14px;
+    cursor:pointer;
+    transition: all 0.2s;
+}
+.s:hover { border-color: var(--primary); }
+
+.card-box {
+    background: var(--ok);
+    border: 2px solid var(--okb);
+    padding: 16px 20px;
+    border-radius: 16px;
+    margin: 16px 0;
+}
+
+.install-banner {
+    background: var(--bubble-bg);
+    border: 2px dashed var(--primary);
+    padding: 12px 16px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+#app {
+    background: var(--card);
+    border-radius: 24px;
+    padding: 24px;
+    margin-top: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 2px solid var(--bubble-bg);
+}
+
+.nav-buttons { display: flex; gap: 10px; margin-top: 20px; }
+.nav-buttons button { flex: 1; }
+button:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+</style></head><body>
+<header>
+    <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size: 1.5rem;">🌸</span>
+        <b>Przewodnik Przyrody Hani</b>
+    </div>
+    <span>
+        <button class="s" onclick="fs(-2)" aria-label="Mniejszy tekst">A−</button>
+        <button class="s" onclick="fs(2)" aria-label="Większy tekst">A+</button>
+    </span>
+</header>
+<main>
+    <div class="install-banner" id="ios-tip" style="display:none;">
+        📱 <b>Instalacja na iPadzie/iPhonie:</b> Stuknij w ikonę <b>Udostępnij</b> (kwadrat ze strzałką w górę na dole Safari) i wybierz <b>Do ekranu początkowego</b>!
+    </div>
+    <div id="app"></div>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+    const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+    const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
+    if (isIos && !isInStandaloneMode) {
+        document.getElementById('ios-tip').style.display = 'block';
+    }
+});
+
+function say(t){
+    try{
+        speechSynthesis.cancel();
+        const cleanText = t.replace(/<[^>]*>?/gm, '');
+        const u=new SpeechSynthesisUtterance(cleanText);
+        u.lang="pl-PL";
+        speechSynthesis.speak(u);
+    }catch(e){}
+}
+
+const lessons = [
+    {
+        title: "1. Co to jest przyroda?",
+        speech: "Witaj Haniu! Dzisiaj wspólnie odkryjemy, czym jest przyroda i co nas otacza. Przyroda to wszystko, co nas otacza i nie zostało stworzone przez człowieka. Oznacza to, że domy, drogi, chodniki czy samochody nie są przyrodą, ponieważ zrobili je ludzie. Składniki przyrody dzielimy na dwie grupy. Pierwsza to elementy ożywione, czyli organizmy: rośliny, zwierzęta, grzyby i bakterie. One wykonują czynności życiowe: oddychają, odżywiają się, rosną i potrafią się poruszać. Druga grupa to elementy nieożywione: woda, powietrze, skały, chmury czy Słońce. One nie oddychają ani nie rosną. O przyrodzie dowiadujemy się z obserwacji, doświadczeń, książek i filmów.",
+        content: `
+            <p>Witaj Haniu! 🌿 Dzisiaj wspólnie odkryjemy, czym jest przyroda i co nas otacza.</p>
+            <h3>Co to jest przyroda?</h3>
+            <p>Przyroda to <b>wszystko, co nas otacza i nie zostało stworzone przez człowieka</b>. Oznacza to, że domy, drogi, chodniki czy samochody <b>nie są</b> przyrodą, ponieważ zrobili je ludzie.</p>
+            <div class="card-box">
+                <h3>Składniki przyrody dzielimy na dwie grupy:</h3>
+                <p><b>1. Elementy ożywione (organizmy):</b> to rośliny, zwierzęta, grzyby i bakterie. One wykonują czynności życiowe: oddychają, odżywiają się, rosną, rozwijają się i potrafią się poruszać (np. pies, motyl, drzewo, borowik).</p>
+                <p><b>2. Elementy nieożywione:</b> to np. woda, powietrze, skały, chmury czy Słońce. One nie oddychają ani nie rosną (chociaż wiatr może wprawić wodę w ruch, to sama nie potrafi ożyć).</p>
+            </div>
+            <h3>Skąd czerpiemy wiedzę o przyrodzie?</h3>
+            <p>O przyrodzie możemy dowiedzieć się z obserwacji i doświadczeń, podręczników, atlasów, filmów w internecie oraz odwiedzając ogrody zoologiczne i botaniczne.</p>
+        `
+    },
+    {
+        title: "2. Sposób na naukę i skupienie",
+        speech: "Każda z nas potrzebuje dobrego miejsca do nauki, żeby czuć się komfortowo i spokojnie. Twoje miejsce do nauki powinno mieć stałe miejsce i porządek, żeby nie tracić energii na szukanie rzeczy. Ważne jest wygodne krzesło dopasowane do wzrostu oraz dobre oświetlenie. Pomaga cisza, sen od dziewięciu do jedenastu godzin, krótkie przerwy co trzydzieści minut oraz ruch na świeżym powietrzu. Unikaj hałasu i nauki przy włączonym telewizorze.",
+        content: `
+            <p>🌸 Każda z nas potrzebuje dobrego miejsca do nauki, żeby czuć się komfortowo i spokojnie.</p>
+            <h3>Twoje miejsce do nauki:</h3>
+            <p><ul>
+                <li><b>Stałe miejsce i porządek:</b> Kiedy masz swoje miejsce, w którym panuje porządek, nie tracisz energii na szukanie kredek czy zeszytów. Bałagan wokoło bardzo rozprasza mózg.</li>
+                <li><b>Wygodne krzesło i dobre światło:</b> Krzesło dopasowane do Twojego wzrostu pomaga siedzieć prosto i wygodnie. Dobre oświetlenie (z góry i z boku) chroni Twoje oczy przed zmęczeniem.</li>
+            </ul></p>
+            <div class="card-box">
+                <h3>Co pomaga, a co przeszkadza w skupieniu?</h3>
+                <p><b>Pomaga:</b> Cisza, sen (9-11 godzin snu sprawia, że mózg działa szybko), krótkie przerwy co 20-30 minut oraz ruch na świeżym powietrzu.</p>
+                <p><b>Przeszkadza:</b> Hałas, stres, zmęczenie oraz wielozadaniowość (np. próba nauki przy włączonym telewizorze lub ciągłe zerkanie w telefon).</p>
+            </div>
+        `
+    },
+    {
+        title: "3. Ekran i mądre korzystanie z internetu",
+        speech: "Internet i telefony są wspaniałymi narzędziami, ale potrzebują od nas mądrych zasad. Uzależnienie to korzystanie z ekranu bez przerwy, gdy szkodzi to zdrowiu. Sygnały ostrzegawcze to lęk bez smartfona, chęć bycia zawsze online, złość na ograniczenia i przejmowanie się polubieniami w sieci. Ustal limit czasu i odkładaj telefon na godzinę przed snem.",
+        content: `
+            <p>📱 Internet i telefony są wspaniałymi narzędziami, ale potrzebują od nas mądrych zasad.</p>
+            <h3>Czym jest uzależnienie od internetu?</h3>
+            <p>To sytuacja, w której korzystamy z ekranu bez przerwy, nawet wtedy, gdy wiemy, że szkodzi to naszym oczom, zdrowiu lub relacjom z bliskimi.</p>
+            <div class="card-box">
+                <h3>Sygnały ostrzegawcze (na co warto uważać):</h3>
+                <p><ul>
+                    <li><b>Lęk bez smartfona:</b> czujesz niepokój, gdy telefonu nie ma pod ręką.</li>
+                    <li><b>Zawsze online:</b> chcesz mieć stały dostęp do sieci wszędzie, nawet na wakacjach.</li>
+                    <li><b>Złość na ograniczenia:</b> irytujesz się, gdy rodzice proszą o odłożenie tabletu.</li>
+                    <li><b>Opinia w sieci:</b> przejmujesz się tym, ile polubień mają Twoje posty.</li>
+                </ul></p>
+            </div>
+            <h3>Jak mądrze korzystać z sieci?</h3>
+            <p>Ustal ze swoimi bliskimi limit czasu, wycisz powiadomienia na noc i pamiętaj, żeby odłożyć telefon na godzinę przed snem, aby Twój mózg mógł wspaniale wypocząć!</p>
+        `
+    },
+    {
+        title: "4. Badam przyrodę i zmysły",
+        speech: "Przyrodę poznajemy naszymi zmysłami oraz specjalnymi przyrządami. Zmysł wzroku to oczy, słuch to uszy, dotyk to skóra, węch to nos, a smak to język. Przyrządy to lupa, mikroskop, lornetka, waga, termometr i zlewka do płynów.",
+        content: `
+            <p>🔍 Przyrodę poznajemy naszymi zmysłami oraz specjalnymi przyrządami.</p>
+            <h3>Zmysły człowieka i ich narządy:</h3>
+            <p><ul>
+                <li><b>Wzrok</b> – narządem są <b>oczy</b> (pozwalają widzieć kształty i kolory).</li>
+                <li><b>Słuch</b> – narządem są <b>uszy</b> (odbierają dźwięki).</li>
+                <li><b>Dotyk</b> – narządem jest <b>skóra</b> (pokrywa całe ciało, czuje miękkość, ciepło, ból).</li>
+                <li><b>Węch</b> – narządem jest <b>nos</b> (rozpoznaje zapachy).</li>
+                <li><b>Smak</b> – narządem jest <b>język</b> (rozpoznaje smaki: słodki, słony, kwaśny, gorzki).</li>
+            </ul></p>
+            <div class="card-box">
+                <h3>Przyrządy przyrodnika:</h3>
+                <p><b>Lupa</b> powiększa drobne szczegóły z bliska (np. owady). <b>Mikroskop</b> pokazuje rzeczy niewidoczne gołym okiem. <b>Lornetka</b> służy do oglądania dalekich obiektów (np. ptaków w korzeniach drzew). <b>Waga</b> waży przedmioty, <b>termometr</b> mierzy temperaturę, a <b>zlewka</b> odmierza płyny.</p>
+            </div>
+        `
+    },
+    {
+        title: "5. Myślę i działam jak przyrodnik",
+        speech: "Naukowcy badają świat w sposób uporządkowany. Doświadczenie składa się z pięciu kroków. Pierwszy to pytanie badawcze. Drugi to hipoteza, czyli przypuszczenie. Trzeci to zaplanowanie i przeprowadzenie doświadczenia, pamiętając, że próby muszą różnić się tylko jednym czynnikiem. Czwarty krok to zapisanie obserwacji, a piąty to wniosek.",
+        content: `
+            <p>🔬 Naukowcy i przyrodnicy badają świat w sposób uporządkowany. Każde doświadczenie składa się z 5 kroków:</p>
+            <div class="card-box">
+                <p><b>1. Zadaj pytanie badawcze:</b> Zastanawiasz się, co chcesz zbadać (np. <i>„Czy światło wpływa na kiełkowanie nasion?”</i>).</p>
+                <p><b>2. Postaw hipotezę:</b> Twoja przypuszczalna odpowiedź (np. <i>„Wierzę, że bez światła nasiona nie wykiełkują”</i>).</p>
+                <p><b>3. Zaplanuj i przeprowadź doświadczenie:</b> Przygotowujesz próby. Pamiętaj: <b>badane próby muszą różnić się tylko jednym czynnikiem</b>, który badasz!</p>
+                <p><b>4. Zapisz obserwacje (wyniki):</b> Notujesz dokładnie to, co zobaczysz.</p>
+                <p><b>5. Wyciągnij wniosek:</b> Odpowiedź na pytanie badawcze. Jeśli wynik potwierdzi przypuszczenie, hipoteza jest potwierdzona. Jeśli nie – hipoteza została obalona (to też jest wspaniały wynik naukowy!).</p>
+            </div>
+        `
+    },
+    {
+        title: "6. Obserwuję pod mikroskopem",
+        speech: "Mikroskop optyczny to magiczne urządzenie do oglądania miniaturowego świata. Składa się z części optycznych: okularu i obiektywów, oraz części mechanicznych: stolika i śrub ostrości. Powiększenie mikroskopu obliczamy mnożąc powiększenie obiektywu przez powiększenie okularu.",
+        content: `
+            <p>🔬 Mikroskop optyczny to magiczne urządzenie, które pozwala zajrzeć w głąb miniaturowego świata.</p>
+            <h3>Budowa mikroskopu:</h3>
+            <p><ul>
+                <li><b>Części optyczne:</b> okular (przez niego patrzysz) oraz obiektywy (znajdują się na rewolwerze i powiększają obraz).</li>
+                <li><b>Części mechaniczne:</b> stolik (gdzie kładziesz preparat), śruba makrometryczna i mikrometryczna (do ustawiania ostrości) oraz źródło światła.</li>
+            </ul></p>
+            <div class="card-box">
+                <h3>Jak obliczyć powiększenie?</h3>
+                <p>Całkowite powiększenie mikroskopu obliczasz mnożąc powiększenie obiektywu przez powiększenie okularu!<br>
+                <b>Wzór:</b> Powiększenie mikroskopu = powiększenie obiektywu × powiększenie okularu.<br>
+                <i>Przykład:</i> Jeśli obiektyw ma 15×, a okular 10×, to obraz jest powiększony <b>150 razy</b> (15 × 10 = 150).</p>
+            </div>
+        `
+    },
+    {
+        title: "7. Posługuję się kompasem",
+        speech: "Kompas pomaga nam odnaleźć drogę w terenie. Wyróżniamy cztery kierunki główne: północ, południe, wschód i zachód, oraz cztery pośrednie. Czerwony koniec igły magnetycznej w kompasie zawsze wskazuje północ.",
+        content: `
+            <p>🧭 Kompas pomaga nam odnaleźć drogę w każdym terenie i nigdy się nie zgubić.</p>
+            <h3>Kierunki geograficzne:</h3>
+            <p><ul>
+                <li><b>Cztery kierunki główne:</b> Północ (N), Południe (S), Wschód (E), Zachód (W).</li>
+                <li><b>Cztery kierunki pośrednie:</b> Północny wschód (NE), Północny zachód (NW), Południowy wschód (SE), Południowy zachód (SW).</li>
+            </ul></p>
+            <div class="card-box">
+                <h3>Jak działa kompas?</h3>
+                <p>W środku kompasu znajduje się mały magnes zwany igłą magnetyczną. Jej <b>czerwony koniec zawsze wskazuje kierunek północny</b>. Pamiętaj, aby trzymać kompas z dala od dużych przedmiotów metalowych lub magnesów, które mogłyby zaburzyć jego wskazania!</p>
+            </div>
+        `
+    }
+];
+
+let currentLesson = 0;
+
+function renderLesson() {
+    const l = lessons[currentLesson];
+    let html = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
+            <p class="mu" style="margin:0;">Moduł ${currentLesson + 1} z ${lessons.length}</p>
+            <button class="s" onclick="say('${l.speech}')">🔊 Przeczytaj tę lekcję</button>
+        </div>
+        <h2>${l.title}</h2>
+        <div style="line-height: 1.8;">${l.content}</div>
+        <div class="nav-buttons">
+    `;
+
+    if (currentLesson > 0) {
+        html += `<button class="b" onclick="changeLesson(-1)">⬅️ Poprzedni temat</button>`;
+    } else {
+        html += `<div></div>`;
+    }
+
+    if (currentLesson < lessons.length - 1) {
+        html += `<button class="b go" style="margin-top:0;" onclick="changeLesson(1)">Następny temat ➡️</button>`;
+    } else {
+        html += `<button class="b go" style="margin-top:0;" onclick="currentLesson=0; renderLesson();">Rozpocznij od nowa 🔄</button>`;
+    }
+
+    html += `</div>`;
+    $("app").innerHTML = html;
+    window.scrollTo(0,0);
+}
+
+function changeLesson(dir) {
+    currentLesson += dir;
+    if (currentLesson < 0) currentLesson = 0;
+    if (currentLesson >= lessons.length) currentLesson = lessons.length - 1;
+    renderLesson();
+}
+
+let fontSz = 20;
+function fs(d){
+    fontSz = Math.min(30, Math.max(16, fontSz + d));
+    document.documentElement.style.setProperty("--fs", fontSz + "px");
+}
+
+const $=id=>document.getElementById(id);
+renderLesson();
+</script></body></html>
